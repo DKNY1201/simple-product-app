@@ -1,15 +1,5 @@
 import {Component} from '@angular/core';
-
-type conditionType = 'new' | 'used' | 'discontinued';
-
-export class Product {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    condition: conditionType;
-    category: string;
-}
+import {Product} from './product';
 
 const PRODUCTS: Product[] = [{
     id: 1,
@@ -104,14 +94,7 @@ const PRODUCTS: Product[] = [{
                 <span class="badge">{{product.id}}</span> {{product.name}}
             </li>
         </ul>
-        <div *ngIf="selectedProduct">
-            <h2>{{selectedProduct.name}} details!</h2>
-            <div><label>id: </label>{{selectedProduct.id}}</div>
-            <div>
-                <label>name: </label>
-                <input [(ngModel)]="selectedProduct.name" placeholder="name"/>
-            </div>
-        </div>
+        <detail-product [product]="selectedProduct"></detail-product>
     `,
     styles: [
             `
