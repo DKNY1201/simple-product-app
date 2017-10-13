@@ -13,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
             <h2>{{product.name}} details!</h2>
             <div><label>id: </label>{{product.id}}</div>
             <div><label>description: </label>{{product.description}}</div>
-            <div><label>price: </label>$ {{product.price}}</div>
+            <div><label>price: </label>{{product.price | currency:'USD':true}}</div>
             <div><label>condition: </label>{{product.condition}}</div>
             <div><label>category: </label>{{product.category}}</div>
             <div>
