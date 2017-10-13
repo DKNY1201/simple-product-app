@@ -10,7 +10,12 @@ export class ProductService {
 
     getProductsSlowly(): Promise<Product[]> {
         return new Promise(resolve => {
-            setTimeout(() => resolve(this.getProducts()), 1500);
+            setTimeout(() => resolve(this.getProducts()), 300);
         })
+    }
+
+    getProduct(id: number): Promise<Product> {
+        return this.getProducts()
+            .then((products) => products.find(product => product.id === id));
     }
 }
