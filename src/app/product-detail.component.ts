@@ -14,7 +14,14 @@ import 'rxjs/add/operator/switchMap';
             <div><label>id: </label>{{product.id}}</div>
             <div><label>description: </label>{{product.description}}</div>
             <div><label>price: </label>{{product.price | currency:'USD':true}}</div>
-            <div><label>condition: </label>{{product.condition}}</div>
+            <div>
+                <label>condition: </label>
+                <span ngSwitch="{{product.condition}}">
+                    <span *ngSwitchCase="'new'">Brand New!</span>
+                    <span *ngSwitchCase="'used'">Mint!</span>
+                    <span *ngSwitchCase="'discontinued'">Out of Stock!</span>
+                </span>
+            </div>
             <div><label>category: </label>{{product.category}}</div>
             <div>
                 <label>name: </label>
