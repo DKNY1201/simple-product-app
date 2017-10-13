@@ -28,6 +28,7 @@ import 'rxjs/add/operator/switchMap';
                 <input [(ngModel)]="product.name" placeholder="name"/>
             </div>
             <button (click)="goBack()">Go back</button>
+            <button (click)="save()">Save</button>
         </div>
     `,
     styleUrls: ['./product-detail.component.css']
@@ -44,5 +45,10 @@ export class ProductDetailComponent implements OnInit{
 
     goBack(): void {
         this.location.back();
+    }
+
+    save(): void {
+        this.productService.updateProduct(this.product)
+            .then(() => this.goBack());
     }
 }

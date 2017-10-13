@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class ProductsComponent implements OnInit{
     ngOnInit(): void {
-        this.getProductsSlowly();
+        this.getProducts();
     }
 
     constructor(private productService: ProductService, private router: Router) {}

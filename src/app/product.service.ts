@@ -1,13 +1,14 @@
 import {Injectable} from "@angular/core";
 import {PRODUCTS} from "./mock-products";
 import {Product} from "./product";
-import {Http} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise'
 
 @Injectable()
 export class ProductService {
     private productUrl = 'api/products';
+    private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private http: Http){}
 
@@ -33,6 +34,15 @@ export class ProductService {
         return this.http.get(`${this.productUrl}/${id}`)
             .toPromise()
             .then(response => response.json() as Product)
+            .catch(error => this.handleError(error));
+    }
+
+    updateProduct(product: Product): Promise<Product> {
+        const url = `${this.productUrl}/${product.id}`;
+        return this.http
+            .put(url, JSON.stringify(product), {headers: this.headers})
+            .toPromise()
+            .then(() => product)
             .catch(error => this.handleError(error));
     }
 }
