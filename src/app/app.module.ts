@@ -14,13 +14,15 @@ import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
+import {ProductSearchComponent} from "./product-search.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         ProductDetailComponent,
         ProductsComponent,
-        DashBoardComponent
+        DashBoardComponent,
+        ProductSearchComponent
     ],
     imports: [
         BrowserModule,
