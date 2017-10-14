@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {PRODUCTS} from "./mock-products";
 import {Product} from "./product";
 import {Http, Headers} from "@angular/http";
 
@@ -43,6 +42,14 @@ export class ProductService {
             .put(url, JSON.stringify(product), {headers: this.headers})
             .toPromise()
             .then(() => product)
+            .catch(error => this.handleError(error));
+    }
+
+    createProduct(product: Product): Promise<Product> {
+        return this.http
+            .post(this.productUrl, JSON.stringify(product), this.headers)
+            .toPromise()
+            .then(response => response.json() as Product)
             .catch(error => this.handleError(error));
     }
 }

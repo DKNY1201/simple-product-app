@@ -1,4 +1,42 @@
 <h2>My Products</h2>
+<div>
+    <div class="row">
+        <label for="product-name">Product name</label>
+        <input type="text" #productName id="product-name" placeholder="Enter product name">
+    </div>
+    <div class="row">
+        <label for="product-desc">Product description</label>
+        <input type="text" #productDesc id="product-desc" placeholder="Enter product description"><br>
+    </div>
+    <div class="row">
+        <label for="product-price">Product price</label>
+        <input type="text" #productPrice id="product-price" placeholder="Enter product price"><br>
+    </div>
+    <div class="row">
+        <label for="product-cond">Product condition</label>
+        <select name="product-cond" id="product-cond" #productCond>
+            <option value="new">Brand New!</option>
+            <option value="used">Mint!</option>
+            <option value="discontinued">Out of Stock!</option>
+        </select>
+    </div>
+    <div class="row">
+        <label for="product-cat">Product category</label>
+        <input type="text" #productCat id="product-cat" placeholder="Enter product category"><br>
+    </div>
+    <div class="row">
+        <button (click)="
+            createProduct(productName.value, productDesc.value, productPrice.value, productCond.value, productCat.value);
+            productName.value = '';
+            productDesc.value = '';
+            productPrice.value = '';
+            productCond.value = 'new';
+            productCat.value = '';
+        ">
+            Add product
+        </button>
+    </div>
+</div>
 <ul class="products">
     <li *ngFor="let product of products"
         (click)="onSelect(product)"
