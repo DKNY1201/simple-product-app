@@ -51,4 +51,10 @@ export class ProductsComponent implements OnInit{
             .then(product => this.products.push(product))
             .catch(error => console.error(error));
     }
+
+    deleteProduct(product: Product) {
+        this.productService.deleteProduct(product)
+            .then(() => this.products.splice(this.products.indexOf(product), 1))
+            .catch(error => console.error(error));
+    }
 }

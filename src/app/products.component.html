@@ -42,6 +42,7 @@
         (click)="onSelect(product)"
         [class.selected]="product === selectedProduct">
         <span class="badge">{{product.id}}</span> {{product.name}}
+        <button class="delete" (click)="deleteProduct(product); $event.stopPropagation();">x</button>
     </li>
 </ul>
 
