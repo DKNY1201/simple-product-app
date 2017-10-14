@@ -7,7 +7,7 @@
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
-    width: 15em;
+    width: 20em;
 }
 
 .products li {
@@ -50,4 +50,42 @@
     height: 1.8em;
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
+}
+
+button.delete {
+    float:right;
+    margin-top: 2px;
+    margin-right: .8em;
+    background-color: gray !important;
+    color:white;
+}
+
+.create-product {
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+
+}
+
+.create-product .row {
+    border-bottom: 1px dashed #cccccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.create-product .row label{
+    width: 15em;
+}
+
+.create-product .row input{
+    width: 30em;
+    height: 3em;
+}
+
+.create-product .row button.submit {
+    text-transform: uppercase;
+    background: #900;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
 }
