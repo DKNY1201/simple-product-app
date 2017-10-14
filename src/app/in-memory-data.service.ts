@@ -89,7 +89,15 @@ export class InMemoryDataService implements InMemoryDbService {
                 condition: 'new',
                 category: 'Case'
             }];
-        return {products};
+
+        const carts = [
+            {
+                id: 1,
+                amount: 1
+            }
+        ];
+
+        return {products, carts};
     }
 
 }

@@ -18,11 +18,6 @@ export class ProductService {
             .catch(error => this.handleError(error));
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred ', error);
-        return Promise.reject(error.message || error);
-    }
-
     getProductsSlowly(): Promise<Product[]> {
         return new Promise(resolve => {
             setTimeout(() => resolve(this.getProducts()), 300);
@@ -59,5 +54,10 @@ export class ProductService {
             .toPromise()
             .then(response => console.log(response))
             .catch(error => this.handleError(error));
+    }
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred ', error);
+        return Promise.reject(error.message || error);
     }
 }

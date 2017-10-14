@@ -15,6 +15,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import {ProductSearchComponent} from "./product-search.component";
+import {CartService} from "./cart/cart.service";
+import {CartModule} from "./cart/cart.module";
 
 @NgModule({
     declarations: [
@@ -29,9 +31,10 @@ import {ProductSearchComponent} from "./product-search.component";
         FormsModule,
         HttpModule,
         AppRoutingModule,
-        InMemoryWebApiModule.forRoot(InMemoryDataService)
+        InMemoryWebApiModule.forRoot(InMemoryDataService),
+        CartModule
     ],
-    providers: [ProductService],
+    providers: [ProductService, CartService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
