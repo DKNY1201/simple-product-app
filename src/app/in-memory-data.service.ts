@@ -91,10 +91,7 @@ export class InMemoryDataService implements InMemoryDbService {
             }];
 
         const carts = [
-            {
-                id: 1,
-                amount: 1
-            }
+
         ];
 
         return {products, carts};

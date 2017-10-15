@@ -1,7 +1,6 @@
 import {Cart} from "./cart";
 import {Http, Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
-import {Product} from "../product";
 
 @Injectable()
 export class CartService {
@@ -17,8 +16,13 @@ export class CartService {
             .catch(error => this.handleError(error));
     }
 
-    updateCart() {
+    updateCart(cart: Cart): Promise<Cart> {
+        const url = `${this.cartUrl}/${cart.id}`;
 
+        return this.http.put(url, JSON.stringify(cart), {headers: this.headers})
+            .toPromise()
+            .then(() => cart)
+            .catch(error => this.handleError(error));
     }
 
     getCarts(): Promise<Cart[]> {

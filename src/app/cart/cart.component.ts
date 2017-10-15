@@ -3,7 +3,6 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Product} from "../product";
 import {CartService} from "./cart.service";
 import {Cart} from "./cart";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 
 @Component({
     selector: 'my-cart',
@@ -12,7 +11,8 @@ import {el} from "@angular/platform-browser/testing/src/browser_util";
 })
 export class CartComponent implements OnInit {
     @Input('currentProduct') product: Product;
-    carts: Cart[];
+    carts: Cart[] = [];
+    showCartDetail = false;
 
     constructor(private cartService: CartService) {}
 
@@ -24,22 +24,34 @@ export class CartComponent implements OnInit {
         this.cartService.getCarts()
             .then(carts => {
                 this.carts = carts;
-                console.log(this.carts);
             })
             .catch(err => console.error(err));
-
     }
 
     addToCart() {
-        const isInCart = this.carts.filter(cart => cart.id === this.product.id).length === 1 ? true : false;
+        const cartToUpdate = this.carts.filter(cart => cart.id === this.product.id);
 
-        if (isInCart) {
-
+        if (cartToUpdate.length === 1) {
+            cartToUpdate[0].amount += 1;
+            this.cartService.updateCart(cartToUpdate[0])
+                .then(cart => console.log(cart))
+                .catch(err => console.error(err));
         } else {
-            const cart = new Cart(this.product.id, 1);
+            const cart = new Cart(this.product.id, 1, this.product);
             this.cartService.addToCart(cart)
                 .then(cart => this.carts.push(cart))
                 .catch(err => console.error(err));
         }
+    }
+
+    calcTotalItem(): number {
+        let numOfItems = 0;
+        if (this.carts.length > 0) {
+            for (let cart of this.carts) {
+                numOfItems += cart.amount;
+            }
+        }
+
+        return numOfItems;
     }
 }

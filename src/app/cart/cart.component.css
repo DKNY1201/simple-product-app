@@ -1,0 +1,26 @@
+.cart {
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cart-detail ul li {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    text-align: center;
+}
+
+.cart-detail ul li:nth-child(2n) {
+    background-color: lightblue;
+    color: #000;
+}
+
+.cart-detail ul li span {
+    width: 24%;
+    display: inline-block;
+    border-right: 1px solid #cccccc;
+}
+
+.cart-detail ul li span:last-child {
+    border: none;
+}
