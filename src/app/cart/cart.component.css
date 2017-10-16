@@ -15,6 +15,10 @@
     color: #000;
 }
 
+.cart-detail ul li:nth-child(2n) span {
+    border-right: 1px solid #000000;
+}
+
 .cart-detail ul li span {
     width: 24%;
     display: inline-block;

@@ -1,7 +1,7 @@
 <button (click)="addToCart()">Add to Cart</button>
 <div class="cart" (click)="showCartDetail = !showCartDetail">
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-    {{calcTotalItem()}} items
+    {{calcTotalItem()}} items (click to show/hide order detail)
 </div>
 <div class="cart-detail" *ngIf="showCartDetail">
     <ul>
@@ -12,9 +12,9 @@
             <span class="price">Total price</span>
         </li>
         <li *ngFor="let cart of carts">
-            <span class="item">{{cart.product.name}}</span>
+            <span class="item">{{cart.product?.name}}</span>
             <span class="amount">{{cart.amount}}</span>
-            <span class="price">{{cart.product.price | currency:'USD':true}}</span>
+            <span class="price">{{cart.product?.price | currency:'USD':true}}</span>
             <span class="total-price">{{cart.product | totalPrice:cart.amount | currency:'USD':true}}</span>
         </li>
 

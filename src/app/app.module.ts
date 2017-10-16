@@ -11,7 +11,6 @@ import {DashBoardComponent} from "./dashboard.component";
 import {AppRoutingModule} from "./app-routing.module";
 
 // Imports for loading & configuring the in-memory web api
-import {HttpClientModule} from "@angular/common/http";
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import {ProductSearchComponent} from "./product-search.component";
