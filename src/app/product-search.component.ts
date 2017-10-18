@@ -19,6 +19,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 })
 export class ProductSearchComponent implements OnInit {
     products: Observable<Product[]>;
+    productsArr: Product[];
     private searchTerms = new Subject<string>();
 
     constructor(private productSearchService: ProductSearchService, private router: Router) {}
@@ -28,14 +29,6 @@ export class ProductSearchComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.searchTerms
-        //     .debounceTime(300)
-        //     .distinctUntilChanged()
-        //     .subscribe((term) => {
-        //     this.products = this.productSearchService.search(term);
-        //     console.log(this.products);
-        // });
-
         this.products = this.searchTerms
             .debounceTime(300)
             .distinctUntilChanged()
@@ -44,6 +37,15 @@ export class ProductSearchComponent implements OnInit {
                console.log(error);
                return Observable.of<Product[]>([]);
             });
+        // this.searchTerms
+        //     .debounceTime(300)
+        //     .distinctUntilChanged()
+        //     .switchMap(term => term ? this.productSearchService.search(term) : Observable.of<Product[]>([]))
+        //     .subscribe(
+        //         products => this.productsArr = products,
+        //         error => console.error(error),
+        //         () => console.log('complete get search')
+        //     )
     }
 
     gotoDetails(product: Product) {

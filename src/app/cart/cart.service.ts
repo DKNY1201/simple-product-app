@@ -1,6 +1,7 @@
 import {Cart} from "./cart";
 import {Http, Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class CartService {
@@ -9,27 +10,47 @@ export class CartService {
 
     constructor(private http: Http) {}
 
-    addToCart(cart: Cart): Promise<Cart> {
+    // addToCart(cart: Cart): Promise<Cart> {
+    //     return this.http.post(this.cartUrl, JSON.stringify(cart), {headers: this.headers})
+    //         .toPromise()
+    //         .then(response => response.json() as Cart)
+    //         .catch(error => this.handleError(error));
+    // }
+
+    addToCart(cart: Cart): Observable<Cart> {
         return this.http.post(this.cartUrl, JSON.stringify(cart), {headers: this.headers})
-            .toPromise()
-            .then(response => response.json() as Cart)
-            .catch(error => this.handleError(error));
+            .map(res => res.json() as Cart)
+            .catch((err: any) => Observable.throw(err || 'Server error'));
     }
 
-    updateCart(cart: Cart): Promise<Cart> {
+    // updateCart(cart: Cart): Promise<Cart> {
+    //     const url = `${this.cartUrl}/${cart.id}`;
+    //
+    //     return this.http.put(url, JSON.stringify(cart), {headers: this.headers})
+    //         .toPromise()
+    //         .then(() => cart)
+    //         .catch(error => this.handleError(error));
+    // }
+
+    updateCart(cart: Cart): Observable<Cart> {
         const url = `${this.cartUrl}/${cart.id}`;
 
         return this.http.put(url, JSON.stringify(cart), {headers: this.headers})
-            .toPromise()
-            .then(() => cart)
-            .catch(error => this.handleError(error));
+            .map(() => cart)
+            .catch((err: any) => Observable.throw(err || 'Server error'));
     }
 
-    getCarts(): Promise<Cart[]> {
+    // getCarts(): Promise<Cart[]> {
+    //     return this.http.get(this.cartUrl)
+    //         .toPromise()
+    //         .then(response => response.json() as Cart[])
+    //         .catch(error => this.handleError(error));
+    // }
+
+    getCarts(): Observable<Cart[]> {
         return this.http.get(this.cartUrl)
-            .toPromise()
-            .then(response => response.json() as Cart[])
-            .catch(error => this.handleError(error));
+            .map(res => res.json() as Cart[])
+            .catch((err: any) => Observable.throw(err || 'Server error'));
     }
 
     private handleError(error: any): Promise<any> {

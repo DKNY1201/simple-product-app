@@ -24,7 +24,7 @@ export class DashBoardComponent implements OnInit {
             .subscribe(
                 products => this.products = products.slice(0, 5),
                 (error) => console.error(error),
-                () => console.log('complete')
+                () => console.log('complete get products on dashboard page')
             )
     }
 }

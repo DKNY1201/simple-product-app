@@ -22,10 +22,11 @@ export class CartComponent implements OnInit {
 
     getCarts() {
         this.cartService.getCarts()
-            .then(carts => {
-                this.carts = carts;
-            })
-            .catch(err => console.error(err));
+            .subscribe(
+                carts => this.carts = carts,
+                error => console.error(error),
+                () => console.log('complete get cart')
+            );
     }
 
     addToCart() {
@@ -34,13 +35,19 @@ export class CartComponent implements OnInit {
         if (cartToUpdate.length === 1) {
             cartToUpdate[0].amount += 1;
             this.cartService.updateCart(cartToUpdate[0])
-                .then(cart => console.log(cart))
-                .catch(err => console.error(err));
+                .subscribe(
+                    cart => console.log(cart),
+                    error => console.error(error),
+                    () => console.log('complete update cart')
+                );
         } else {
             const cart = new Cart(this.product.id, 1, this.product);
             this.cartService.addToCart(cart)
-                .then(cart => this.carts.push(cart))
-                .catch(err => console.error(err));
+                .subscribe(
+                    cart => this.carts.push(cart),
+                    error => console.error(error),
+                    () => console.log('complete add to cart')
+                );
         }
     }
 

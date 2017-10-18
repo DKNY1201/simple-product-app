@@ -18,7 +18,8 @@ export class ProductService {
         //     .then(response => response.json() as Product[])
         //     .catch(error => this.handleError(error));
         return this.http.get(this.productUrl)
-            .map(response => response.json() as Product[]);
+            .map(response => response.json() as Product[])
+            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     getProductsSlowly(): Promise<Product[]> {
@@ -27,36 +28,64 @@ export class ProductService {
         })
     }
 
-    getProduct(id: number): Promise<Product> {
+    // getProduct(id: number): Promise<Product> {
+    //     return this.http.get(`${this.productUrl}/${id}`)
+    //         .toPromise()
+    //         .then(response => response.json() as Product)
+    //         .catch(error => this.handleError(error));
+    // }
+
+    getProduct(id: number): Observable<Product> {
         return this.http.get(`${this.productUrl}/${id}`)
-            .toPromise()
-            .then(response => response.json() as Product)
-            .catch(error => this.handleError(error));
+            .map(res => res.json() as Product)
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 
-    updateProduct(product: Product): Promise<Product> {
+    // updateProduct(product: Product): Promise<Product> {
+    //     const url = `${this.productUrl}/${product.id}`;
+    //     return this.http
+    //         .put(url, JSON.stringify(product), {headers: this.headers})
+    //         .toPromise()
+    //         .then(() => product)
+    //         .catch(error => this.handleError(error));
+    // }
+
+    updateProduct(product: Product): Observable<Product> {
         const url = `${this.productUrl}/${product.id}`;
         return this.http
             .put(url, JSON.stringify(product), {headers: this.headers})
-            .toPromise()
-            .then(() => product)
-            .catch(error => this.handleError(error));
+            .map(res => res.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 
-    createProduct(product: Product): Promise<Product> {
+    // createProduct(product: Product): Promise<Product> {
+    //     return this.http
+    //         .post(this.productUrl, JSON.stringify(product), this.headers)
+    //         .toPromise()
+    //         .then(response => response.json() as Product)
+    //         .catch(error => this.handleError(error));
+    // }
+
+    createProduct(product: Product): Observable<Product> {
         return this.http
             .post(this.productUrl, JSON.stringify(product), this.headers)
-            .toPromise()
-            .then(response => response.json() as Product)
-            .catch(error => this.handleError(error));
+            .map(response => response.json() as Product)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
+
+    // deleteProduct(product: Product) {
+    //     const url = `${this.productUrl}/${product.id}`;
+    //     return this.http.delete(url)
+    //         .toPromise()
+    //         .then(response => console.log(response))
+    //         .catch(error => this.handleError(error));
+    // }
 
     deleteProduct(product: Product) {
         const url = `${this.productUrl}/${product.id}`;
         return this.http.delete(url)
-            .toPromise()
-            .then(response => console.log(response))
-            .catch(error => this.handleError(error));
+            .map(response => response.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     private handleError(error: any): Promise<any> {

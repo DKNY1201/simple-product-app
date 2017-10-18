@@ -16,13 +16,16 @@ export class ProductDetailComponent implements OnInit{
     product: Product;
     constructor(private productService: ProductService,
                 private route: ActivatedRoute,
-                private location: Location,
-                private cartService: CartService) {}
+                private location: Location) {}
 
     ngOnInit(): void {
         this.route.paramMap
             .switchMap((params: ParamMap) => this.productService.getProduct(+params.get('id')))
-            .subscribe((product) => this.product = product);
+            .subscribe(
+                product => this.product = product,
+                error => console.error(error),
+                () => console.log('complete get product detail')
+            );
     }
 
     goBack(): void {
@@ -31,6 +34,6 @@ export class ProductDetailComponent implements OnInit{
 
     save(): void {
         this.productService.updateProduct(this.product)
-            .then(() => this.goBack());
+            .subscribe(() => this.location.back());
     }
 }

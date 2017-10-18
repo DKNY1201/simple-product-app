@@ -27,8 +27,8 @@ export class ProductsComponent implements OnInit{
     getProducts(): void {
         this.productService.getProducts().subscribe(
             products => this.products = products,
-            (error) => console.error(error),
-            () => console.log('complete')
+            error => console.error(error),
+            () => console.log('complete get product')
         )
     }
 
@@ -41,6 +41,20 @@ export class ProductsComponent implements OnInit{
         this.router.navigate(['/detail', this.selectedProduct.id]);
     }
 
+    // createProduct(productName: string, productDesc: string, productPrice: number, productCond: conditionType, cat: string): void {
+    //     if (!productName || !productDesc || !productPrice || isNaN(productPrice) || !productCond || !cat) {
+    //         console.error('Data inputted are wrong!!!');
+    //         return;
+    //     }
+    //
+    //     const id = this.products[this.products.length - 1].id + 1;
+    //
+    //     const product = new Product(id, productName, productDesc, productPrice, productCond, cat);
+    //     this.productService.createProduct(product)
+    //         .then(product => this.products.push(product))
+    //         .catch(error => console.error(error));
+    // }
+
     createProduct(productName: string, productDesc: string, productPrice: number, productCond: conditionType, cat: string): void {
         if (!productName || !productDesc || !productPrice || isNaN(productPrice) || !productCond || !cat) {
             console.error('Data inputted are wrong!!!');
@@ -51,18 +65,35 @@ export class ProductsComponent implements OnInit{
 
         const product = new Product(id, productName, productDesc, productPrice, productCond, cat);
         this.productService.createProduct(product)
-            .then(product => this.products.push(product))
-            .catch(error => console.error(error));
+            .subscribe(
+                product => this.products.push(product),
+                error => console.error(error),
+                () => console.log('complete create product')
+            );
     }
+
+    // deleteProduct(product: Product) {
+    //     this.productService.deleteProduct(product)
+    //         .then(() => {
+    //             this.products.splice(this.products.indexOf(product), 1);
+    //             if (this.selectedProduct === product) {
+    //                 this.selectedProduct = null;
+    //             }
+    //         })
+    //         .catch(error => console.error(error));
+    // }
 
     deleteProduct(product: Product) {
         this.productService.deleteProduct(product)
-            .then(() => {
-                this.products.splice(this.products.indexOf(product), 1);
-                if (this.selectedProduct === product) {
-                    this.selectedProduct = null;
-                }
-            })
-            .catch(error => console.error(error));
+            .subscribe(
+                () => {
+                    this.products.splice(this.products.indexOf(product), 1);
+                    if (this.selectedProduct === product) {
+                        this.selectedProduct = null;
+                    }
+                },
+                error => console.error(error),
+                () => console.log('complete delete product')
+            );
     }
 }
