@@ -16,9 +16,8 @@
     left: 0;
     background-color: #EEE;
     margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
     border-radius: 4px;
+    padding: 7px 0;
 }
 
 .products li.selected:hover {
@@ -54,38 +53,45 @@
 
 button.delete {
     float:right;
-    margin-top: 2px;
-    margin-right: .8em;
     background-color: gray !important;
     color:white;
+    padding: 5px;
 }
 
 .create-product {
     border: 1px solid #cccccc;
-    border-radius: 10px;
-
+    padding: 20px;
+    margin: 20px;
 }
 
-.create-product .row {
-    border-bottom: 1px dashed #cccccc;
-    padding: 10px;
-    margin-bottom: 10px;
+/*.create-product .row {*/
+    /*border-bottom: 1px dashed #cccccc;*/
+    /*padding: 10px;*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
+/*.create-product .row label{*/
+    /*width: 15em;*/
+/*}*/
+
+/*.create-product .row input{*/
+    /*width: 30em;*/
+    /*height: 3em;*/
+/*}*/
+
+/*.create-product .row button.submit {*/
+    /*text-transform: uppercase;*/
+    /*background: #900;*/
+    /*border: none;*/
+    /*color: #fff;*/
+    /*cursor: pointer;*/
+    /*padding: 10px;*/
+/*}*/
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border: red 1px solid;
 }
 
-.create-product .row label{
-    width: 15em;
-}
-
-.create-product .row input{
-    width: 30em;
-    height: 3em;
-}
-
-.create-product .row button.submit {
-    text-transform: uppercase;
-    background: #900;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 10px;
+.help-block {
+    color: red;
 }

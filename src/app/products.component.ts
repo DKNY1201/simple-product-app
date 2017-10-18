@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Product} from './product';
 import {ProductService} from "./product.service";
 import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 
 type conditionType = 'new' | 'used' | 'discontinued';
 
@@ -11,8 +12,11 @@ type conditionType = 'new' | 'used' | 'discontinued';
     styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit{
+    addProductForm: FormGroup;
+
     ngOnInit(): void {
         this.getProducts();
+        this.initAddProductForm();
     }
 
     constructor(private productService: ProductService, private router: Router) {}
@@ -55,15 +59,7 @@ export class ProductsComponent implements OnInit{
     //         .catch(error => console.error(error));
     // }
 
-    createProduct(productName: string, productDesc: string, productPrice: number, productCond: conditionType, cat: string): void {
-        if (!productName || !productDesc || !productPrice || isNaN(productPrice) || !productCond || !cat) {
-            console.error('Data inputted are wrong!!!');
-            return;
-        }
-
-        const id = this.products[this.products.length - 1].id + 1;
-
-        const product = new Product(id, productName, productDesc, productPrice, productCond, cat);
+    createProduct(product: Product): void {
         this.productService.createProduct(product)
             .subscribe(
                 product => this.products.push(product),
@@ -95,5 +91,33 @@ export class ProductsComponent implements OnInit{
                 error => console.error(error),
                 () => console.log('complete delete product')
             );
+    }
+
+    initAddProductForm() {
+        this.addProductForm = new FormGroup({
+            'productName': new FormControl('', Validators.required),
+            'productDesc': new FormControl('', Validators.required),
+            'productPrice': new FormControl('', Validators.required),
+            'productCond': new FormControl('used', Validators.required),
+            'productCat': new FormControl('', Validators.required),
+        })
+    }
+
+    onSubmit() {
+        const productName = this.addProductForm.get('productName').value;
+        const productDesc = this.addProductForm.get('productDesc').value;
+        const productPrice = this.addProductForm.get('productPrice').value;
+        const productCond = this.addProductForm.get('productCond').value;
+        const productCat = this.addProductForm.get('productCat').value;
+        if (!productName || !productDesc || !productPrice || isNaN(productPrice) || !productCond || !productCat) {
+            console.error('Data inputted are wrong!!!');
+            return;
+        }
+
+        const id = this.products[this.products.length - 1].id + 1;
+
+        const product = new Product(id, productName, productDesc, productPrice, productCond, productCat);
+
+        this.createProduct(product);
     }
 }

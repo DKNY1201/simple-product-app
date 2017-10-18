@@ -1,42 +1,38 @@
 <h2>My Products</h2>
-<div class="create-product">
-    <div class="row">
+<form class="create-product" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
         <label for="product-name">Product name</label>
-        <input type="text" #productName id="product-name" placeholder="Enter product name">
+        <input formControlName="productName" class="form-control" type="text" #productName id="product-name" placeholder="Enter product name">
+        <span class="help-block" *ngIf="!addProductForm.get('productName').valid && addProductForm.get('productName').touched">Please enter product name</span>
     </div>
-    <div class="row">
+    <div class="form-group">
         <label for="product-desc">Product description</label>
-        <input type="text" #productDesc id="product-desc" placeholder="Enter product description"><br>
+        <input formControlName="productDesc" class="form-control" type="text" #productDesc id="product-desc" placeholder="Enter product description">
+        <span class="help-block" *ngIf="!addProductForm.get('productDesc').valid && addProductForm.get('productDesc').touched">Please enter product description</span>
     </div>
-    <div class="row">
+    <div class="form-group">
         <label for="product-price">Product price</label>
-        <input type="text" #productPrice id="product-price" placeholder="Enter product price"><br>
+        <input formControlName="productPrice" class="form-control" type="text" #productPrice id="product-price" placeholder="Enter product price">
+        <span class="help-block" *ngIf="!addProductForm.get('productPrice').valid && addProductForm.get('productPrice').touched">Please enter product price</span>
     </div>
-    <div class="row">
+    <div class="form-group">
         <label for="product-cond">Product condition</label>
-        <select name="product-cond" id="product-cond" #productCond>
+        <select formControlName="productCond" class="form-control" name="product-cond" id="product-cond" #productCond>
             <option value="new">Brand New!</option>
             <option value="used">Mint!</option>
             <option value="discontinued">Out of Stock!</option>
         </select>
+        <span class="help-block" *ngIf="!addProductForm.get('productCond').valid && addProductForm.get('productCond').touched">Please select product condition</span>
     </div>
-    <div class="row">
+    <div class="form-group">
         <label for="product-cat">Product category</label>
-        <input type="text" #productCat id="product-cat" placeholder="Enter product category"><br>
+        <input formControlName="productCat" class="form-control" type="text" #productCat id="product-cat" placeholder="Enter product category">
+        <span class="help-block" *ngIf="!addProductForm.get('productCat').valid && addProductForm.get('productCat').touched">Please enter product category</span>
     </div>
-    <div class="row">
-        <button class="submit" (click)="
-            createProduct(productName.value, productDesc.value, productPrice.value, productCond.value, productCat.value);
-            productName.value = '';
-            productDesc.value = '';
-            productPrice.value = '';
-            productCond.value = 'new';
-            productCat.value = '';
-        ">
-            Add product
-        </button>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Add product</button>
     </div>
-</div>
+</form>
 <ul class="products">
     <li *ngFor="let product of products"
         (click)="onSelect(product)"
