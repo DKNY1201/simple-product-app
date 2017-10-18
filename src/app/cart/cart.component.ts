@@ -12,7 +12,7 @@ import {Cart} from "./cart";
 export class CartComponent implements OnInit {
     @Input('currentProduct') product: Product;
     carts: Cart[] = [];
-    showCartDetail = false;
+    showCartDetail = true;
 
     constructor(private cartService: CartService) {}
 

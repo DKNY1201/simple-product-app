@@ -1,3 +1,10 @@
+#search-component {
+    display: block;
+    clear: both;
+    padding-top: 10px;
+    border-top: 1px dashed #cccccc;
+}
+
 .search-result{
     border-bottom: 1px solid gray;
     border-left: 1px solid gray;

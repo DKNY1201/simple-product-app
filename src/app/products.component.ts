@@ -25,8 +25,11 @@ export class ProductsComponent implements OnInit{
     }
 
     getProducts(): void {
-        this.productService.getProducts()
-            .then((products) => this.products = products);
+        this.productService.getProducts().subscribe(
+            products => this.products = products,
+            (error) => console.error(error),
+            () => console.log('complete')
+        )
     }
 
     getProductsSlowly(): void {

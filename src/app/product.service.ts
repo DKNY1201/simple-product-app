@@ -3,6 +3,7 @@ import {Product} from "./product";
 import {Http, Headers} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise'
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class ProductService {
@@ -11,11 +12,13 @@ export class ProductService {
 
     constructor(private http: Http){}
 
-    getProducts(): Promise<Product[]> {
+    getProducts(): Observable<Product[]> {
+        // return this.http.get(this.productUrl)
+        //     .toPromise()
+        //     .then(response => response.json() as Product[])
+        //     .catch(error => this.handleError(error));
         return this.http.get(this.productUrl)
-            .toPromise()
-            .then(response => response.json() as Product[])
-            .catch(error => this.handleError(error));
+            .map(response => response.json() as Product[]);
     }
 
     getProductsSlowly(): Promise<Product[]> {

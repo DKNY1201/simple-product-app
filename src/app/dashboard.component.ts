@@ -7,17 +7,24 @@ import {Product} from "./product";
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css']
 })
-export class DashBoardComponent implements OnInit{
+export class DashBoardComponent implements OnInit {
     ngOnInit(): void {
         this.getProducts();
     }
 
     products: Product[];
 
-    constructor(private productService: ProductService){}
+    constructor(private productService: ProductService) {
+    }
 
     getProducts() {
+        // this.productService.getProducts()
+        //     .then((products) => this.products = products.slice(0, 5));
         this.productService.getProducts()
-            .then((products) => this.products = products.slice(0, 5));
+            .subscribe(
+                products => this.products = products.slice(0, 5),
+                (error) => console.error(error),
+                () => console.log('complete')
+            )
     }
 }
