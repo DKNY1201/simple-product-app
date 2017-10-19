@@ -3,7 +3,10 @@
     <div class="form-group">
         <label for="product-name">Product name</label>
         <input formControlName="productName" class="form-control" type="text" #productName id="product-name" placeholder="Enter product name">
-        <span class="help-block" *ngIf="!addProductForm.get('productName').valid && addProductForm.get('productName').touched">Please enter product name</span>
+        <span class="help-block" *ngIf="!addProductForm.get('productName').valid && addProductForm.get('productName').touched">
+            <span *ngIf="addProductForm.get('productName').errors?.required">Please enter product name</span>
+            <span *ngIf="addProductForm.get('productName').errors?.uniqueProductID">Product ID 'P123' is unique</span>
+        </span>
     </div>
     <div class="form-group">
         <label for="product-desc">Product description</label>
@@ -13,7 +16,10 @@
     <div class="form-group">
         <label for="product-price">Product price</label>
         <input formControlName="productPrice" class="form-control" type="text" #productPrice id="product-price" placeholder="Enter product price">
-        <span class="help-block" *ngIf="!addProductForm.get('productPrice').valid && addProductForm.get('productPrice').touched">Please enter product price</span>
+        <span class="help-block" *ngIf="!addProductForm.get('productPrice').valid && addProductForm.get('productPrice').touched">
+            <span *ngIf="addProductForm.get('productPrice').errors?.required">Please enter product price</span>
+            <span *ngIf="addProductForm.get('productPrice').errors?.notANumber">Price must be numberic</span>
+        </span>
     </div>
     <div class="form-group">
         <label for="product-cond">Product condition</label>
@@ -30,7 +36,7 @@
         <span class="help-block" *ngIf="!addProductForm.get('productCat').valid && addProductForm.get('productCat').touched">Please enter product category</span>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary" type="submit">Add product</button>
+        <button class="btn btn-primary" type="submit" [disabled]="addProductForm.invalid">Add product</button>
     </div>
 </form>
 <ul class="products">
@@ -46,5 +52,5 @@
     <h2>
         {{selectedProduct.name | uppercase}} is my product
     </h2>
-    <button (click)="gotoDetail()">View Detail</button>
+    <button class="btn btn-primary" (click)="gotoDetail()">View Detail</button>
 </div>

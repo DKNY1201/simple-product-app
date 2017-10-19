@@ -2,7 +2,7 @@
     <h4>Product Search</h4>
     <input type="text" #searchBox id="search-box" (keyup)="search(searchBox.value)">
     <div>
-        <div class="search-result" *ngFor="let product of productsArr | async" (click)="gotoDetails(product)">
+        <div class="search-result" *ngFor="let product of products | async" (click)="gotoDetails(product)">
             {{product.name}}
         </div>
     </div>

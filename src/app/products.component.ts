@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Product} from './product';
 import {ProductService} from "./product.service";
 import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
+import {FormControl, FormGroup, ValidationErrors, Validator, Validators} from "@angular/forms";
+import {Observable} from "rxjs/Observable";
 
 type conditionType = 'new' | 'used' | 'discontinued';
 
@@ -95,11 +96,11 @@ export class ProductsComponent implements OnInit{
 
     initAddProductForm() {
         this.addProductForm = new FormGroup({
-            'productName': new FormControl('', Validators.required),
-            'productDesc': new FormControl('', Validators.required),
-            'productPrice': new FormControl('', Validators.required),
+            'productName': new FormControl(null, [Validators.required], this.validateUniqueProductIDPromise),
+            'productDesc': new FormControl(null, Validators.required),
+            'productPrice': new FormControl(null, [Validators.required, this.validatePrice]),
             'productCond': new FormControl('used', Validators.required),
-            'productCat': new FormControl('', Validators.required),
+            'productCat': new FormControl(null, Validators.required)
         })
     }
 
@@ -109,15 +110,41 @@ export class ProductsComponent implements OnInit{
         const productPrice = this.addProductForm.get('productPrice').value;
         const productCond = this.addProductForm.get('productCond').value;
         const productCat = this.addProductForm.get('productCat').value;
-        if (!productName || !productDesc || !productPrice || isNaN(productPrice) || !productCond || !productCat) {
-            console.error('Data inputted are wrong!!!');
-            return;
-        }
 
         const id = this.products[this.products.length - 1].id + 1;
 
         const product = new Product(id, productName, productDesc, productPrice, productCond, productCat);
 
         this.createProduct(product);
+    }
+
+    // validateUniqueProductIDPromise(control: FormControl): ValidationErrors | null {
+    //     if (control.value === "P123") {
+    //         return {uniqueProductID: true}
+    //     } else {
+    //         return null
+    //     }
+    // }
+
+    validatePrice(control: FormControl): ValidationErrors | null {
+        const pattern = /^\d+$/;
+        if (!pattern.test(control.value)) {
+            return {notANumber: true}
+        }
+        return null;
+    }
+
+    validateUniqueProductIDPromise(control : FormControl): Observable<any> | Promise<any> {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                if( control.value === "P123" ) {
+                    resolve(
+                        { uniqueProductID: true }
+                    )
+                } else {
+                    resolve(null);
+                }
+            }, 1000);
+        })
     }
 }
