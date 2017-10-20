@@ -3,6 +3,7 @@
     <div class="form-group">
         <label for="product-name">Product name</label>
         <input formControlName="productName" class="form-control" type="text" #productName id="product-name" placeholder="Enter product name">
+
         <span class="help-block" *ngIf="!addProductForm.get('productName').valid && addProductForm.get('productName').touched">
             <span *ngIf="addProductForm.get('productName').errors?.required">Please enter product name</span>
             <span *ngIf="addProductForm.get('productName').errors?.uniqueProductID">Product ID 'P123' is unique</span>
